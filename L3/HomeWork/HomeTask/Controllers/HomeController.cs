@@ -7,18 +7,18 @@ namespace HomeTask.Controllers
 {
     public class HomeController : Controller
     {
+        private bool ValidateCookie()
+        {
+            var cookie = Request.Cookies[CookieHelper.CookieName];
+
+            return cookie[nameof(Models.User.Name)] != null;
+        }
+
         // GET: Home
         public ActionResult Index()
         {
-            var cookie = Request.Cookies[CookieHelper.CookieName];
-            if (cookie != null)
-            {
-                if (cookie[nameof(Models.User.Name)] == null)
-                {
-                    return RedirectToAction("Home");
-                }
-            }
-
+            if (!ValidateCookie())
+                return RedirectToAction("Home");
 
             return View();
         }
@@ -49,20 +49,16 @@ namespace HomeTask.Controllers
 
         public ActionResult Contacts()
         {
-            if (Request.Cookies[CookieHelper.CookieName]?[nameof(Models.User.Name)] == null)
-            {
+            if (!ValidateCookie())
                 return RedirectToAction("Home");
-            }
 
             return View();
         }
 
         public ActionResult About()
         {
-            if (Request.Cookies[CookieHelper.CookieName]?[nameof(Models.User.Name)] == null)
-            {
+            if (!ValidateCookie())
                 return RedirectToAction("Home");
-            }
 
             return View();
         }

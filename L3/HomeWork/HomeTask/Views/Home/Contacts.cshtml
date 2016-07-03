@@ -6,12 +6,6 @@
 
 <h2>Contacts</h2>
 
-@{
-    if (HttpContext.Current.Response.Cookies[CookieHelper.CookieName] != null &&
-        HttpContext.Current.Response.Cookies[CookieHelper.CookieName][nameof(HomeTask.Models.User.Name)] != null)
-    {
-        <div>
-            Hello, darling @HttpContext.Current.Response.Cookies[CookieHelper.CookieName][nameof(HomeTask.Models.User.Name)]!
-        </div>
-    }
-}
+<div>
+    Hello, darling @HttpContext.Current.Request.Cookies[CookieHelper.CookieName][nameof(HomeTask.Models.User.Name)]!
+</div>
