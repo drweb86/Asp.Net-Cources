@@ -1,0 +1,41 @@
+﻿@model CW1.Models.PrivatePageModel
+
+@{
+    ViewBag.Title = "PrivatePage";
+}
+
+<h2>The Top Secret Page</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            Numbers
+        </dt>
+
+        <dd>
+            @foreach (var number in Model.Numbers)
+            {
+                <p>@number</p>
+            }
+        </dd>
+
+        <dt>
+            Minimum Value
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MinimumValue)
+        </dd>
+
+        <dt>
+            Maximum Value
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MaximumValue)
+        </dd>
+
+    </dl>
+</div>
+
+<p>By closing this page you agree to a) forget everything you saw there b) be good and cool person</p>
