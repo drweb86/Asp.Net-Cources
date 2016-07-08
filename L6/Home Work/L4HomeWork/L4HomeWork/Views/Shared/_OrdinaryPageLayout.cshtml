@@ -1,0 +1,30 @@
+﻿@using L4HomeWork.DAL
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<table style="border-width: 0px;">
+    <tr>
+        <td>
+            <div style="border-width: 1px; border-color: black; border-style: solid">
+                @{
+                    // i had to make System.Data.Linq copy local true for that to work.
+                    // thats a bit odd to see in asp.
+                    using (var dbContext = new ShopDalDataContext())
+                    {
+                        foreach (var category in dbContext.Categories)
+                        {
+                            <a href="/Home/Index?id=@category.Category_UID">@category.Name</a>
+                            <br/>
+                        }
+                    }
+                }
+            </div>
+        </td>
+
+        <td>
+            @RenderBody()
+        </td>
+    </tr>
+</table>
+

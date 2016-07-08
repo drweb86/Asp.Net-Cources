@@ -1,0 +1,44 @@
+﻿@model int?
+@using L4HomeWork.DAL
+
+@{
+    Layout = "~/Views/Shared/_OrdinaryPageLayout.cshtml";
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+@{
+    // i had to make System.Data.Linq copy local true for that to work.
+    // thats a bit odd to see in asp.
+    int id = Model ?? -1;
+    using (var dbContext = new ShopDalDataContext())
+    {
+        var correspondingCategory = dbContext.Categories.FirstOrDefault(category => category.Category_UID == id);
+        if (correspondingCategory == null)
+        {
+            correspondingCategory = dbContext.Categories.FirstOrDefault();
+        }
+
+        if (correspondingCategory == null)
+        {
+            <p>Categories are missing</p>
+            return;
+        }
+
+        <table>
+            @foreach (var product in dbContext.Products.Where(
+                item=>item.ProductCategories.Any(pc=>pc.Category_UID == correspondingCategory.Category_UID)))
+            {
+                <tr>
+                    <td>
+                        <p>@product.Name</p>
+                    </td>
+                    <td>
+                        <p>@product.Price</p>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+}
