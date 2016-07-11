@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Product>
+@using L4HomeWork.DAL
+
+@{
+    Layout = "~/Views/Shared/_OrdinaryPageLayout.cshtml";
+    ViewBag.Title = "Index";
+}
+
+<h2>Products</h2>
+
+@{
+    if (Model == null || !Model.Any())
+    {
+        <p>There are no items in the selected category</p>
+    }
+    else
+    {
+        <table>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>
+                        <p>@product.Name</p>
+                    </td>
+                    <td>
+                        <p>@product.Price</p>
+                    </td>
+                </tr>
+            }
+        </table>
+    }
+}
