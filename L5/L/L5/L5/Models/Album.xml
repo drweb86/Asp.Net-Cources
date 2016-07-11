@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<album>
+  <song id="1" time="60">Song 1</song>
+  <song id="2" time="60">Song 2</song>
+  <song id="3" time="60">Song 3</song>
+</album>
