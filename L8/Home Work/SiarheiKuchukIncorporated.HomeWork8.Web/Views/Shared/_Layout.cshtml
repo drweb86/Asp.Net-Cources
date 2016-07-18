@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+</head>
+<body>
+    <div style="background-color: gainsboro; border-radius: 8px; border-color: black; border-width: 1px; border-style: solid;">
+        <p style="text-align: center; vertical-align: middle">
+            <a href="/Home/Index">Index</a> |
+            <a href="/Home/Contacts">Contacts</a> |
+            <a href="/Home/About">About</a>
+        </p>
+    </div>
+
+    @RenderBody()
+
+    <div style="background-color: dimgray; border-radius: 8px; border-color: black; border-width: 1px; border-style: solid;">
+        <p style="color: white; text-align: center; vertical-align: middle">Copyright @DateTime.Now.Year</p>
+    </div>
+
+    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

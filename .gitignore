@@ -25,3 +25,11 @@ L8/Theory/ItAcademy.Galery.Web/ItAcademy.Gallery.DAL/bin/
 L8/Theory/ItAcademy.Galery.Web/ItAcademy.Galery.Web/obj/
 L8/Theory/ItAcademy.Galery.Web/ItAcademy.Galery.ViewModels/obj/
 L8/Theory/ItAcademy.Galery.Web/ItAcademy.Galery.BL/obj/
+L8/Home Work/.vs/
+*/obj/*
+*.suo
+*.user
+_ReSharper.*
+bin
+obj
+packages
