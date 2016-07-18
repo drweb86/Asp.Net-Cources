@@ -59,9 +59,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\SiarheiKuchukIncorporated.HomeWork8.Dal-DbFirst\SiarheiKuchukIncorporated.HomeWork8.Dal-DbFirst.csproj">
-      <Project>{13a85042-9741-4e06-baf4-444070c190ba}</Project>
-      <Name>SiarheiKuchukIncorporated.HomeWork8.Dal-DbFirst</Name>
+    <ProjectReference Include="..\SiarheiKuchukIncorporated.HomeWork8.Dal-CodeFirst\SiarheiKuchukIncorporated.HomeWork8.Dal-CodeFirst.csproj">
+      <Project>{66105fce-e47f-4273-8f04-d3e6dbe5f630}</Project>
+      <Name>SiarheiKuchukIncorporated.HomeWork8.Dal-CodeFirst</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
