@@ -1,14 +1,17 @@
-﻿using System.Linq;
-using System.Web.Mvc;
-using SiarheiKuchukIncorporated.HomeWork8.Web.DAL;
+﻿using System.Web.Mvc;
+using SiarheiKuchukIncorporated.HomeWork8.Bl.Services;
+using SiarheiKuchukIncorporated.HomeWork8.Bl.ViewModels;
+
 
 namespace SiarheiKuchukIncorporated.HomeWork8.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly ShopService _shopService = new ShopService();
+
         public ActionResult GetCategories()
         {
-            var categories = new ShopDbService()
+            var categories = _shopService
                 .SelectCategories();
 
             return PartialView(categories);
@@ -17,23 +20,19 @@ namespace SiarheiKuchukIncorporated.HomeWork8.Web.Controllers
         // GET: Home
         public ActionResult Index(int? id)
         {
-            Category category;
+            CategoryViewModel category;
             if (id == null)
-                category = new ShopDbService().SelectCategories().FirstOrDefault();
+                category = _shopService.SelectFirstCategory();
             else
             {
-                category = new ShopDbService().SelectCategory(id.Value);
-
-                if (category == null)
-                {
-                    category = new ShopDbService().SelectCategories().FirstOrDefault();
-                }
+                category = _shopService.SelectCategory(id.Value) ??
+                    _shopService.SelectFirstCategory();
             }
 
             if (category == null)
                 return View();
 
-            return View(new ShopDbService().SelectProducts(category));
+            return View(_shopService.SelectProducts(category));
         }
 
         public ActionResult Home()

@@ -1,11 +1,11 @@
-﻿@model IEnumerable<SiarheiKuchukIncorporated.HomeWork8.Web.DAL.Product>
+﻿@model IEnumerable<SiarheiKuchukIncorporated.HomeWork8.Bl.ViewModels.ProductViewModel>
 
 @{
     Layout = "~/Views/Shared/_OrdinaryPageLayout.cshtml";
     ViewBag.Title = "Index";
 }
 
-<h2>Products</h2>
+<h2>ProductViewModels</h2>
 
 @{
     if (Model == null || !Model.Any())
