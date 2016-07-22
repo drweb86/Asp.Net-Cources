@@ -8,11 +8,12 @@
 
 <h2>@Resources.Site_Name</h2>
 
-<p>@string.Format(Resources.Index_Welcome, CredentialsCookieHelper.Load().Login)</p>
+<p>@string.Format(Resources.Index_Welcome, CredentialsHelper.GetAuthenticatedUserName())</p>
 <a href="/Authorization/Logout">@Resources.Index_Logout</a>
-
+<br/>
+<br />
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Create New", "AddUser", "Authorization", new {}, null)
 </p>
 <table class="table">
     <tr>
@@ -34,8 +35,8 @@
             @Html.DisplayFor(modelItem => item.Password)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            <a href="/Authorization/Delete?userName=@item.Login">Delete</a>
+            @Html.ActionLink("Edit", "UpdateUser", "Authorization", new { userName = @item.Login }, null)
+            @Html.ActionLink("Delete", "Delete", "Authorization", new { userName = @item.Login }, null)
         </td>
     </tr>
 }

@@ -121,7 +121,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\LanguageController.cs" />
     <Compile Include="Helpers\CultureCookieHelper.cs" />
-    <Compile Include="Helpers\CredentialsCookieHelper.cs" />
+    <Compile Include="Helpers\CredentialsHelper.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -146,6 +146,8 @@
     <Content Include="Views\Authorization\Login.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Authorization\AddUser.cshtml" />
+    <Content Include="Views\Authorization\UpdateUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

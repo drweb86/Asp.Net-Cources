@@ -51,5 +51,17 @@ namespace AspNetCourses.L9.BL.Services
         {
             Membership.DeleteUser(userName);
         }
+
+        public void Update(UserViewModel vm)
+        {
+            MembershipUser user = Membership.GetUser(vm.Login);
+            user.ChangePassword(user.GetPassword(), vm.Password);
+        }
+
+        public UserViewModel GetUser(string userName)
+        {
+            MembershipUser dbUser = Membership.GetUser(userName);
+            return new UserViewModel(dbUser.UserName, dbUser.GetPassword());
+        }
     }
 }

@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using AspNetCourses.L9.BL.Services;
-using AspNetCourses.L9.BL.ViewModels;
-using AspNetCourses.L9.Web.Helpers;
 
 namespace AspNetCourses.L9.Web.Controllers
 {
@@ -17,11 +11,6 @@ namespace AspNetCourses.L9.Web.Controllers
         [Authorize]
         public ActionResult Index()
         {
-            //var userViewModel = CredentialsCookieHelper.Load();
-            //if (userViewModel == null ||
-            //    _authenticationService.Authenticate(userViewModel.Login, userViewModel.Password) == null)
-            //    return RedirectToAction("Login", "Authorization");
-
             return View(_authenticationService.GetUsers());
         }
     }

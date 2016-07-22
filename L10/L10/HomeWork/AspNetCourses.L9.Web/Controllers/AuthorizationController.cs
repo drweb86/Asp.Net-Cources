@@ -1,7 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using AspNetCourses.L9.BL.Services;
 using AspNetCourses.L9.BL.ViewModels;
 using AspNetCourses.L9.Web.Helpers;
@@ -32,9 +29,52 @@ namespace AspNetCourses.L9.Web.Controllers
                 return View(vm);
 
             if (!_service.Register(vm))
+            {
+                ModelState.AddModelError("", "Can't register user with such login");
+                return View(vm);
+            }
+
+            CredentialsHelper.RememberAsAuthenticated(vm.Login);
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        public ActionResult AddUser()
+        {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult AddUser(UserViewModel vm)
+        {
+            if (!ModelState.IsValid)
                 return View(vm);
 
-            CredentialsCookieHelper.Save(Response, vm);
+            if (!_service.Register(vm))
+            {
+                ModelState.AddModelError("", "Can't register user with such login");
+                return View(vm);
+            }
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [Authorize]
+        public ActionResult UpdateUser(string userName)
+        {
+            return View(_service.GetUser(userName));
+        }
+        
+        [Authorize]
+        [HttpPost]
+        public ActionResult UpdateUser(UserViewModel vm)
+        {
+            if (!ModelState.IsValid)
+                return View(vm);
+
+            _service.Update(vm);
 
             return RedirectToAction("Index", "Home");
         }
@@ -47,7 +87,7 @@ namespace AspNetCourses.L9.Web.Controllers
 
         public ActionResult Logout()
         {
-            CredentialsCookieHelper.Expire(Response);
+            CredentialsHelper.Forget();
 
             return RedirectToAction("Login");
         }
@@ -66,7 +106,7 @@ namespace AspNetCourses.L9.Web.Controllers
                 return View(vm);
             }
 
-            CredentialsCookieHelper.Save(Response, identity);
+            CredentialsHelper.RememberAsAuthenticated(identity.Login);
 
             return RedirectToAction("Index", "Home");
         }
