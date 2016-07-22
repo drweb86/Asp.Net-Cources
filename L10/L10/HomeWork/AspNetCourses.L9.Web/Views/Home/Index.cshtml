@@ -1,0 +1,43 @@
+﻿@model IEnumerable<AspNetCourses.L9.BL.ViewModels.UserViewModel>
+@using AspNetCourses.L9.Web.Controllers
+@using AspNetCourses.L9.Web.Helpers
+
+@{
+    ViewBag.Title = Resources.Site_Name;
+}
+
+<h2>@Resources.Site_Name</h2>
+
+<p>@string.Format(Resources.Index_Welcome, CredentialsCookieHelper.Load().Login)</p>
+<a href="/Authorization/Logout">@Resources.Index_Logout</a>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Login)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Password)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Login)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+            <a href="/Authorization/Delete?userName=@item.Login">Delete</a>
+        </td>
+    </tr>
+}
+
+</table>
