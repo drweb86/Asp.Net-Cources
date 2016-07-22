@@ -1,0 +1,11 @@
+﻿@using AspNetCourses.L9.Web.Controllers
+@using AspNetCourses.L9.Web.Helpers
+
+@{
+    ViewBag.Title = Resources.Site_Name;
+}
+
+<h2>@Resources.Site_Name</h2>
+
+<p>@string.Format(Resources.Index_Welcome, CredentialsCookieHelper.Load().Name)</p>
+<a href="/Authorization/Logout">@Resources.Index_Logout</a>
