@@ -1,0 +1,15 @@
+﻿@model Sk.Hw11.Web.Models.HomeIndexPageViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@Model.RelativePath</h2>
+
+@foreach (var picture in @Model.Images)
+{
+    <p>@picture</p>
+    <img src="~/GetImage/@picture"/>
+    <br />
+}
+
