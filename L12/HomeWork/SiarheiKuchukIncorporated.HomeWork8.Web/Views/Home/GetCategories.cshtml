@@ -1,0 +1,21 @@
+﻿@model IEnumerable<SiarheiKuchukIncorporated.HomeWork8.Bl.ViewModels.CategoryViewModel>
+@{
+    Layout = null;
+}
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+        </tr>
+    
+    @foreach (var item in Model) {
+        <tr>
+            <td>
+                <a href="/Home/Index?id=@item.Category_UID">@item.Name</a>
+            </td>
+        </tr>
+    }
+    
+    </table>
