@@ -9,39 +9,21 @@ function setColor(color) {
     previewColor(defaultPageBackground);
 }
 
-function onSetYellowColor() {
-    setColor("yellow");
-}
-function onSetBlueColor() {
-    setColor("blue");
-}
-function onSetGreenColor() {
-    setColor("green");
+function onSetColor(e) {
+    var sender = (e && e.target) || (window.event && window.event.srcElement);
+    setColor(sender.style.background);
 }
 
-function onPreviewYellowColor() {
-    previewColor("yellow");
+function onPreviewColor(e) {
+    var sender = (e && e.target) || (window.event && window.event.srcElement);
+    previewColor(sender.style.background);
 }
-function onPreviewBlueColor() {
-    previewColor("blue");
-}
-function onPreviewGreenColor() {
-    previewColor("green");
-}
-
 
 function onSetDefaultColor() {
     setColor(defaultPageBackground);
 }
 
-$("#SetYellowDiv").click(onSetYellowColor);
-$("#SetYellowDiv").mouseenter(onPreviewYellowColor);
-$("#SetYellowDiv").mouseleave(onSetDefaultColor);
+$(".ChangeColor").click(onSetColor);
+$(".ChangeColor").mouseenter(onPreviewColor);
+$(".ChangeColor").mouseleave(onSetDefaultColor);
 
-$("#SetBlueDiv").click(onSetBlueColor);
-$("#SetBlueDiv").mouseenter(onPreviewBlueColor);
-$("#SetBlueDiv").mouseleave(onSetDefaultColor);
-
-$("#SetGreenDiv").click(onSetGreenColor);
-$("#SetGreenDiv").mouseenter(onPreviewGreenColor);
-$("#SetGreenDiv").mouseleave(onSetDefaultColor);
