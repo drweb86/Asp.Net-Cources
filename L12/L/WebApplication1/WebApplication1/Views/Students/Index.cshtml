@@ -1,0 +1,11 @@
+﻿@model IEnumerable<string>
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Students</h2>
+
+@foreach (var student in Model)
+{
+    <div>@student</div>
+}

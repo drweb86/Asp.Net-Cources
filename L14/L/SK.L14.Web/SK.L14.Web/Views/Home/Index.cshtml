@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Cars</h2>
+<script src="~/Scripts/CarsJQ.js"></script>
+
+<input type="button" value="Load cars" id="LoadCarsButton"/>
+<table id="carsTable">
+
+</table>
+
+<script id="carsTemplate" type="text/x-jquery-tmpl">
+    <tr>
+        <td>${Model}</td>
+        <td>${Color}</td>
+    </tr>
+</script>
+
+@{
+    var ajaxOptions = new AjaxOptions()
+    {
+        UpdateTargetId = "appointments",
+        Url = "/Home/Appointment",
+        LoadingElementId = "Loading",
+        Confirm = "Are you sure?"
+    };
+}
+
+<div id="Loading">Loading....</div>
+
+@using (Ajax.BeginForm(ajaxOptions))
+{
+
+    @Html.DropDownList("id", new SelectList(new string[] {"All", "Mike", "Peter"}), "All")
+
+    <table>
+        <thead>
+        <th>Client</th>
+        <th>Date</th>
+        </thead>
+
+        <tbody id="appointments">
+        @Html.Action("Appointment")
+        </tbody>
+    </table>
+
+    <input type="submit" value="Submit"/>
+}

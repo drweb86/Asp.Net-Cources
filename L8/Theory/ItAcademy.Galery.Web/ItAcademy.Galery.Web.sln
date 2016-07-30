@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItAcademy.Gallery.DAL", "It
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItAcademy.Galery.BL", "ItAcademy.Galery.BL\ItAcademy.Galery.BL.csproj", "{EF9CDA51-9758-4F9B-B386-F5035B20B550}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ItAcademy.Galery.DalCF", "ItAcademy.Galery.DalCF\ItAcademy.Galery.DalCF.csproj", "{52B8300C-D830-4BC3-A6EE-F32A109B1CD9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{EF9CDA51-9758-4F9B-B386-F5035B20B550}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EF9CDA51-9758-4F9B-B386-F5035B20B550}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EF9CDA51-9758-4F9B-B386-F5035B20B550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{52B8300C-D830-4BC3-A6EE-F32A109B1CD9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{52B8300C-D830-4BC3-A6EE-F32A109B1CD9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{52B8300C-D830-4BC3-A6EE-F32A109B1CD9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{52B8300C-D830-4BC3-A6EE-F32A109B1CD9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

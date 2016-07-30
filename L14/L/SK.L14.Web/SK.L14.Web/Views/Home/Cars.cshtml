@@ -1,0 +1,14 @@
+﻿@model IEnumerable<SK.L14.Web.Database.Car>
+
+<tr>
+    <td>Model</td>
+    <td>Color</td>
+</tr>
+
+@foreach (var car in Model)
+{
+    <tr>
+        <td>@car.Model</td>
+        <td>@car.Color</td>
+    </tr>
+}

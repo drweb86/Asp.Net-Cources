@@ -24,7 +24,8 @@ namespace Sk.Hw11.Web.Controllers
                     .GetFiles(picturesFolder, "*.png")
                     .Select(item=>item
                         .Substring(picturesFolder.Length)
-                        .TrimStart('\\', '/'));
+                        .TrimStart('\\', '/')
+                        .Replace(".png", string.Empty));
 
             return View(new HomeIndexPageViewModel(
                 picturesFolder.Substring(rootDirectory.Length).Replace('\\', '/'),

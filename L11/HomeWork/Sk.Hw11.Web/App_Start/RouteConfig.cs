@@ -16,9 +16,11 @@ namespace Sk.Hw11.Web
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            //routes.Add(new Route( //Роутинг сюдой не работает, пришлось через конфиг добавлять.
-            //    "GetImage/{PictureName}",
-            //    new PicturesRouteHandler()));
+            
+            routes.MapRoute(
+                name: "Custom",
+                url: "GetImage/{PictureName}"
+            ).RouteHandler = new PicturesRouteHandler();
 
             routes.MapRoute(
                 name: "Default",
@@ -54,10 +56,10 @@ namespace Sk.Hw11.Web
 
         public void ProcessRequest(HttpContext context)
         {
-            var pictureRelativePath = context.Request.RawUrl.Substring("/GetImage/".Length);
+            var pictureRelativePath = (string)context.Request.RequestContext.RouteData.Values["PictureName"];
 
             //var pictureRelativePath = context.Request.Params["PictureName"];
-            var picture = new FileInfo(Path.Combine(_picturesDirectory, pictureRelativePath)).FullName;
+            var picture = new FileInfo(Path.Combine(_picturesDirectory, pictureRelativePath) + ".png").FullName;
 
             if (!picture.StartsWith(_picturesDirectory))
                 throw new ConfigurationErrorsException("'PictureName' value is invalid, it is not resides in pictures directory.");

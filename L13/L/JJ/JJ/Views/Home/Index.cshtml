@@ -1,0 +1,99 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<div>
+    <label>You have</label>
+    <label id="count">0</label>
+    <label>goods</label>
+</div>
+<br/>
+<script src="~/Scripts/Busket.js"></script>
+<div>
+    <label>Name: Peugeot</label><br />
+    <label>Price: 1000$</label><br/>
+
+    <!--onclick="Basket.add()" = old approach-->
+    <input id="add" type="button" @*onclick="Busket.add()"*@ value="Add"/>
+    <input id="remove" type="button" @*onclick="Busket.remove()"*@ value="Remove"/>
+</div>
+
+
+<script>
+    var z = 99;
+
+    //alert(z);// or window.z
+    //console.log(z + 1);
+
+    //function displaySomething() { // it can be a class inside.
+    //    var a = 5;
+    //    var z = 1;
+
+    //    console.log(a);
+    //    console.log(z);
+    //}
+
+    //displaySomething();
+
+    //var f = function () {
+    //    console.log("Hello world!");
+    //}
+    //f();
+
+
+    //(function (n) {
+    //    console.log("Hello world!" + n);
+    //    console.log("5" + n);
+    //    console.log(n + "5");
+    //    console.log(n * "5");
+    //}(13));
+
+    function BaseUser(id) {
+        //var a = 13 - private field
+        this.id = id; //"base user Id"
+    }
+
+    function User(name, age) { //pName, pAge, this is constructor.
+        this.name = name; // arguments[0]
+        this.age = age; // arguments[1], if params are missing, we can get them via arguments.
+
+        this.Display = function() {
+            console.log(this.Name + " " + this.age);
+        }
+
+        var weight = 10;
+        this.getWeight = function() {
+            return weight;
+        }
+
+        this.setWeight = function(value) {
+            weight = value;
+        }
+
+    }
+
+    User.prototype = new BaseUser("id"); // наследование, устанавливает также значения по умолчанию
+
+    var admin = new User("Admin", 25);
+    //console.log(admin.name);
+    //console.log(admin.age);
+
+    console.log(admin.id);
+    console.log(User.prototype.id);
+
+    admin.id = 13;
+
+    console.log(admin.id);
+    console.log(User.prototype.id);
+
+
+
+    User.prototype.newMethod = function() {
+        console.log("mew method");
+    }
+
+    admin.newMethod();
+</script>

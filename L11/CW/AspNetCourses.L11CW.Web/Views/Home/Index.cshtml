@@ -1,0 +1,11 @@
+﻿@using AspNetCourses.L11CW.Web.Helpers
+@{
+    ViewBag.Title = "Wellcome";
+}
+
+<h2>Index</h2>
+
+<p>@($"Welcome back, {CredentialsHelper.GetAuthenticatedUserName()}!")</p>
+<p><a href="/Authorization/Logout">Logout</a></p>
+
+<p><a href="/Home/Nod">Nod</a></p>

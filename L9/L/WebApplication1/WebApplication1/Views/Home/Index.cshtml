@@ -1,0 +1,15 @@
+﻿@model WebApplication1.Models.User
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>@WebApplication1.localization.Home.Title</h2>
+
+<a href="/Language/?lang=en">EN</a>
+<a href="/Language/?lang=ru">RU</a>
+<a href="/Language/?lang=de">DE</a>
+
+<p>Name: @Model.Name <br/></p>
+<p>Surname: @Model.Surname <br /></p>
+
