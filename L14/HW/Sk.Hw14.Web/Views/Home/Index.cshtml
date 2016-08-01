@@ -1,0 +1,57 @@
+﻿@model IEnumerable<Sk.Hw14.Bl.ShopViewModel>
+
+@{
+    ViewBag.Title = "Shops";
+}
+
+<h2>Shops</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            Режим работы
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.OpensAt)
+            -
+            @Html.DisplayFor(modelItem => item.ClosesAt)
+        </td>
+        <td>
+            <a class="AboutShop" id="Shop-@item.Shop_UID">О магазине</a>
+        </td>
+    </tr>
+}
+</table>
+
+<table>
+    <tr>
+        <th>
+            Selected Shop
+        </th>
+        <th>
+            Details
+        </th>
+        <th></th>
+    </tr>
+    <tr>
+        <td>
+            <p id="SelectedShop"/>
+        </td>
+        <td>
+            <p id="SelectedShopDescription"/>
+        </td>
+    </tr>
+</table>
+
+<script src="~/Scripts/ShopsJQ.js"></script>
