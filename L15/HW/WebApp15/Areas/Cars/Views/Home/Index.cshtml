@@ -7,18 +7,12 @@
 
 <table id="cars">
     @*if(model != null)
-    foreach
-    <tr>
-        <td>${Model}</td>
-        <td>${Price}</td>
-    </tr>*@
+        foreach
+        <tr>
+            <td>${Model}</td>
+            <td>${Price}</td>
+        </tr>*@
 </table>
-
-<div>
-    <input type="text" id="Model" placeholder="Model" /> <br />
-    <input type="text" id="Price" placeholder="Price" /> <br />
-    <input type="button" id="addBtn" class="btn btn-primary" value="Add"/>
-</div>
 
 <script id="carsTmpl" type="text/x-jquery-tmpl">
     <tr>
@@ -29,3 +23,17 @@
         </td>
     </tr>
 </script>
+
+<style>
+    .dialog {
+        display: none
+    }
+</style>
+
+<input type="button" id="ShowAddDialogBtn" class="btn btn-primary" value="Add"/>
+
+<div id="AddCarDialog" class="dialog ui-dialog-titlebar ui-widget-header ui-corner-all ui-helper-clearfix">
+    <input type="text" id="Model" placeholder="Model" /> <br />
+    <input type="text" id="Price" placeholder="Price" /> <br />
+</div>
+

@@ -1,8 +1,25 @@
 ﻿$(document).ready(function () {
-    $('#addBtn').click(function () {
-        Cars.addCar();
-    });
     Cars.getCars();
+
+    $("#ShowAddDialogBtn").on("click", function (evnt) {
+            $(function () {
+                $("#AddCarDialog").dialog({
+                    modal: true,
+                    title: "Add Car",
+                    buttons: {
+                        "Add Car": function () {
+                            Cars.addCar();
+                            $(this).dialog("close");
+                        },
+                        Cancel: function () {
+                            $(this).dialog("close");
+                        }
+                    }
+                });
+            });
+            evnt.preventDefault();
+    });
+
 });
 
 Cars = {
