@@ -19,7 +19,6 @@
             });
             evnt.preventDefault();
     });
-
 });
 
 Cars = {
@@ -31,6 +30,7 @@ Cars = {
             success: function (output, status, xhr) {
                 Cars.renderCars(output);
                 $('.deleteBtn').click(Cars.deleteCar);
+                $('.updateBtn').click(Cars.updateCar);
             },
             error: function () {
                 console.log('error');
@@ -77,5 +77,62 @@ Cars = {
                 console.log('error');
             }
         });
-    }
+    },
+
+
+    updateCar: function (evnt) {
+            var id = $(this).attr("update-id");
+
+            $.ajax({
+                type: "GET",
+                url: "/api/cars/" + id,
+                asynch: true,
+                success: function (output, status, xhr) {
+                    $("#EditModel").val(output.Model);
+                    $("#EditPrice").val(output.Price);
+
+                                
+                },
+                error: function () {
+                    console.log('error');
+                }
+            });
+
+
+            $("#EditCarDialog")
+                    .dialog({
+                        modal: true,
+                        title: "Update Car",
+                        buttons: {
+                            "Update Car": function() {
+                                var model = $('#EditModel').val();
+                                var price = $('#EditPrice').val();
+
+                                $.ajax({
+                                    type: 'PUT',
+                                    url: "/api/cars",
+                                    asynch: false,
+                                    data: { Model: model, Price: price, Id : id },
+                                    success: function () {
+                                        Cars.getCars();
+                                    },
+                                    error: function () {
+                                        console.log('error');
+                                    }
+                                });
+
+                                            
+                                // update on ui
+                                Cars.getCars();
+
+                                $(this).dialog("close");
+                            },
+                            Cancel: function() {
+                                $(this).dialog("close");
+                            }
+                        }
+                    });
+
+            evnt.preventDefault();
+    },
 }
