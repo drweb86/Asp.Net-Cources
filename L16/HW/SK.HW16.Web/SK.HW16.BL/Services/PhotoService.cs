@@ -36,7 +36,7 @@ namespace SK.HW16.BL.Services
             using (var dbContext = new PhotosDbEntities())
             {
                 var dbImage = dbContext.Images
-                    .OrderBy(item => item.Timestamp)
+                    .OrderBy(item => item.Image_UID)
                     .FirstOrDefault();
 
                 if (dbImage == null)
@@ -51,10 +51,9 @@ namespace SK.HW16.BL.Services
             using (var dbContext = new PhotosDbEntities())
             {
                 var dbImage = dbContext.Images
-                    .OrderBy(item => current.Timestamp)
-                    .FirstOrDefault(item=> 
-                        item.Timestamp >= current.Timestamp &&
-                        item.Image_UID != current.Image_UID);
+                    .Where(item=>item.Image_UID > current.Image_UID)
+                    .OrderBy(item => item.Image_UID)
+                    .FirstOrDefault();
 
                 if (dbImage == null)
                     return null;
@@ -68,10 +67,9 @@ namespace SK.HW16.BL.Services
             using (var dbContext = new PhotosDbEntities())
             {
                 var dbImage = dbContext.Images
-                    .OrderByDescending(item => current.Timestamp)
-                    .FirstOrDefault(item =>
-                        item.Timestamp >= current.Timestamp &&
-                        item.Image_UID != current.Image_UID);
+                    .Where(item => item.Image_UID < current.Image_UID)
+                    .OrderByDescending(item => item.Image_UID)
+                    .FirstOrDefault();
 
                 if (dbImage == null)
                     return null;

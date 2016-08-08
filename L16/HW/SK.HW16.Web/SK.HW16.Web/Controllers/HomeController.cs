@@ -1,5 +1,7 @@
-﻿using System.Web.Mvc;
+﻿using System;
+using System.Web.Mvc;
 using SK.HW16.BL.Services;
+using SK.HW16.ViewModels;
 using SK.HW16.Web.Models;
 
 namespace SK.HW16.Web.Controllers
@@ -8,7 +10,14 @@ namespace SK.HW16.Web.Controllers
     {
         private readonly IPhotoService _photoService = new PhotoService();
 
-        // GET: Home
+        [HttpPost]
+        public ActionResult AddComment(int id, string comment)
+        {
+            _photoService.AddComment(new CommentViewModel() {CommentBody = comment, Image_UID = id, TimeStamp = DateTime.UtcNow});
+
+            return RedirectToAction("Index", new {id});
+        }
+
         public ActionResult Index(int? id)
         {
             var currentPhoto = id == null ? 

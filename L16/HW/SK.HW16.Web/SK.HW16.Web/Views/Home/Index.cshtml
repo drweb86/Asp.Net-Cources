@@ -6,17 +6,44 @@
 
 <table>
     <tr>
-        <td><a href="/Home/Index/@Model.Previous.Image_UID">previous</a></td>
+        <td>
+            @if (@Model.Previous != null)
+            {
+                <a href="/Home/Index/@Model.Previous.Image_UID">previous</a>
+            }
+            else
+            {
+                <p>previous</p>
+            }
+        </td>
 
-        <td><image src="@Model.Current.Url"/></td>
+        <td><img height="400" src="@Model.Current.Url"/></td>
 
-        <td><a href="/Home/Index/@Model.Next.Image_UID">next</a></td>
+        <td>
+            @if (@Model.Next != null)
+            {
+                <a href="/Home/Index/@Model.Next.Image_UID">next</a>
+            }
+            else
+            {
+                <p>next</p>
+            }
+        </td>
     </tr>
 </table>
+<br/>
+
+<h2>Комментарии</h2>
 
 @foreach (var comment in Model.Comments)
 {
+    <br/>
     <p>@comment.CommentBody</p>
+    <br />
 }
 
+<form method="POST" action="/Home/AddComment?id=@Model.Current.Image_UID">
+    <input type="text" name="comment"/>
+    <input type="submit" value="Добавить комментарий"/>
+</form>
 @*TODO: adding comment*@
