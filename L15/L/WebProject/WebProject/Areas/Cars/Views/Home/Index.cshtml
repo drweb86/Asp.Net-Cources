@@ -1,0 +1,26 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>CARS SPA</h2>
+
+<table id="cars">
+
+</table>
+
+<div>
+    <input type="text" id="Model" placeholder="Model"/> <br/>
+    <input type="text" id="Price" placeholder="Price"/> <br/>
+    <input type="button" id="addButton" value="Add"/>
+</div>
+
+<script id="CarsTmpl" type="text/x-jquery-tmpl">
+    <tr>
+        <td>${Model}</td>
+        <td>${Price}</td>
+        <td>
+            <input type="button" class="btn btn-danger deleteButton" value="Delete" id="${Id}" />
+        </td>
+    </tr>
+</script>
