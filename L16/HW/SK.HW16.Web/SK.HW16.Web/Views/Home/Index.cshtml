@@ -1,0 +1,22 @@
+﻿@model SK.HW16.Web.Models.HomePageViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<table>
+    <tr>
+        <td><a href="/Home/Index/@Model.Previous.Image_UID">previous</a></td>
+
+        <td><image src="@Model.Current.Url"/></td>
+
+        <td><a href="/Home/Index/@Model.Next.Image_UID">next</a></td>
+    </tr>
+</table>
+
+@foreach (var comment in Model.Comments)
+{
+    <p>@comment.CommentBody</p>
+}
+
+@*TODO: adding comment*@
