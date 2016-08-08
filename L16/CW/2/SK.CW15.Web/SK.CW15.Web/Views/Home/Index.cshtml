@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<script src="~/scripts/Requests.js"></script>
+
+<h2>Index</h2>
+
+<a class="ShowTable" argument="valueble">Показать все</a> |
+<a class="ShowTable" argument="trash">Отсортировать по цене</a> |
+<a class="PricelessLink" argument="valueble">Самый дорогой</a> |
+<a class="PricelessLink" argument="trash">Самый дешевый</a> |
+
+<style>
+    .view {
+        visibility: visible;
+    }
+</style>
+
+<div id="MostValuebleView" class="view">
+</div>
+
+<script id="GoodsTmpl" type="text/x-jquery-tmpl">
+    <tr>
+        <td>${Title}</td>
+        <td>${Price}</td>
+    </tr>
+</script>
+
+<div id="GoodsView" class="view">
+    <table id="AllGoods" class="table"></table>
+</div>
