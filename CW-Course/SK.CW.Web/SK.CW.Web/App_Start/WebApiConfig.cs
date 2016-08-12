@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using SK.CW.DI;
 
 namespace SK.CW.Web
 {
@@ -19,6 +20,8 @@ namespace SK.CW.Web
             );
 
             config.Formatters.Remove(config.Formatters.XmlFormatter);
+
+            config.DependencyResolver = new AppDependencyResolver();
         }
     }
 }

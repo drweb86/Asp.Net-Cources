@@ -6,9 +6,16 @@ namespace SK.CW.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IUsersService _usersService;
+
+        public HomeController(IUsersService usersService)
+        {
+            _usersService = usersService;
+        }
+        
         public ActionResult Index()
         {
-            var allUsers = new UsersService().GetUsers();
+            var allUsers = _usersService.GetUsers();
 
             return View(allUsers);
         }
@@ -24,7 +31,7 @@ namespace SK.CW.Web.Controllers
             if (!ModelState.IsValid)
                 return View(pageViewModel);
 
-            new UsersService().AddUser(pageViewModel.GetUserViewModel(), pageViewModel.GetDetailViewModel());
+            _usersService.AddUser(pageViewModel.GetUserViewModel(), pageViewModel.GetDetailViewModel());
 
             return RedirectToAction("Index");
         }

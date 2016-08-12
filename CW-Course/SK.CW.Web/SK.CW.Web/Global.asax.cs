@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Http;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
+using SK.CW.DI;
 
 namespace SK.CW.Web
 {
@@ -15,6 +17,10 @@ namespace SK.CW.Web
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+
+            DependencyResolver.SetResolver(new AppDependencyResolver());
+
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
     }
 }

@@ -6,11 +6,16 @@ namespace SK.CW.Web.API
 {
     public class UserDetailsController : ApiController
     {
+        private readonly IUsersService _usersService;
+
+        public UserDetailsController(IUsersService usersService)
+        {
+            _usersService = usersService;
+        }
+
         public DetailViewModel Get(int id)
         {
-            var usersService = new UsersService();
-
-            return usersService.GetDetail(id);
+            return _usersService.GetDetail(id);
         }
     }
 }

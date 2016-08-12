@@ -2,10 +2,40 @@
     $(".showDetails").click(function() {
         UsersManagement.ShowDetails($(this).attr("details-uid"));
     });
+    
+    $(function () {
+        $("#ConfirmDialogView").dialog({
+            resizable: false,
+            height: "auto",
+            width: 400,
+            modal: true,
+            autoOpen:false,
+            buttons: {
+                "Удалить": function () {
+                    UsersManagement.DeleteUser($("#ConfirmDialogView").data("user-uid"));
+                    $(this).dialog("close");
+                },
+                "Отмена": function () {
+                    $(this).dialog("close");
+                }
+            }
+        });
+    });
 
     $(".deleteUser").click(function () {
-        UsersManagement.DeleteUser($(this).attr("user-uid"));
+        $('#ConfirmDialogView')
+            .data("user-uid", $(this).attr("user-uid"))
+            .dialog("open");
     });
+
+    $("tr").not(':first').hover(
+          function () {
+              $(this).css("background", "lightgreen");
+          },
+          function () {
+              $(this).css("background", "");
+          }
+    );
 });
 
 

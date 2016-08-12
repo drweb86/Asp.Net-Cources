@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SK.CW.Web", "SK.CW.Web\SK.C
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SK.CW.ViewModels", "SK.CW.ViewModels\SK.CW.ViewModels.csproj", "{771DF4F9-FF69-4327-8EF1-6FF4F28B7516}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SK.CW.DI", "SK.CW.DI\SK.CW.DI.csproj", "{EC8847A2-C3B1-4ECA-8335-D1ACCFB5BE8D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +35,10 @@ Global
 		{771DF4F9-FF69-4327-8EF1-6FF4F28B7516}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{771DF4F9-FF69-4327-8EF1-6FF4F28B7516}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{771DF4F9-FF69-4327-8EF1-6FF4F28B7516}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EC8847A2-C3B1-4ECA-8335-D1ACCFB5BE8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC8847A2-C3B1-4ECA-8335-D1ACCFB5BE8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC8847A2-C3B1-4ECA-8335-D1ACCFB5BE8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC8847A2-C3B1-4ECA-8335-D1ACCFB5BE8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -24,24 +24,29 @@
         <th>Удалить</th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr id="User-@item.User_UID-Row">
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Surname)
-        </td>
-        <td>
-            <a details-uid="@item.Details_UID" class="showDetails">Детали</a>
-        </td>
-        <td>
-            <a user-uid="@item.User_UID" class="deleteUser">Удалить</a>
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr id="User-@item.User_UID-Row">
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Surname)
+            </td>
+            <td>
+                <a details-uid="@item.Details_UID" class="showDetails">Детали</a>
+            </td>
+            <td>
+                <a user-uid="@item.User_UID" class="deleteUser">Удалить</a>
+            </td>
+        </tr>
+    }
 
 </table>
+
+<div id="ConfirmDialogView" class="JQueryResultView" title="Удаление пользователя">
+    <p>Подтвердите удаление пользователя.</p>
+</div>
 
 <div id="SelectedUserDetailsView" class="JQueryResultView">
     <h2>Информация о выбранном пользователе</h2>
