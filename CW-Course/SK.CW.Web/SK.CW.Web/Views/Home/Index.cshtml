@@ -5,7 +5,7 @@
 }
 <script src="~/Scripts/IndexPage.js"></script>
 <p>
-    @Html.ActionLink("Добавить нового пользователя", "Create")
+    @Html.ActionLink("Добавить нового пользователя", "AddUser")
 </p>
 
 <h2>Пользователи</h2>
@@ -25,7 +25,7 @@
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
+    <tr id="User-@item.User_UID-Row">
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>

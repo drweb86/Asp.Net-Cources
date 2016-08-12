@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using SK.CW.BL;
+using SK.CW.Web.Models;
 
 namespace SK.CW.Web.Controllers
 {
@@ -14,6 +11,22 @@ namespace SK.CW.Web.Controllers
             var allUsers = new UsersService().GetUsers();
 
             return View(allUsers);
+        }
+
+        public ActionResult AddUser()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AddUser(AddUserPageViewModel pageViewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(pageViewModel);
+
+            new UsersService().AddUser(pageViewModel.GetUserViewModel(), pageViewModel.GetDetailViewModel());
+
+            return RedirectToAction("Index");
         }
     }
 }
