@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SK.DDP.ImageGallery", "SK.DDP.ImageGallery\SK.DDP.ImageGallery.csproj", "{C01A54FB-DBAB-4468-9B21-0261C4521375}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WEB", "SK.DDP.ImageGallery\WEB.csproj", "{C01A54FB-DBAB-4468-9B21-0261C4521375}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SK.DDP.BL", "SK.DDP.BL\SK.DDP.BL.csproj", "{C51871A2-A217-42C1-99DD-124E0B5C99F3}"
 EndProject

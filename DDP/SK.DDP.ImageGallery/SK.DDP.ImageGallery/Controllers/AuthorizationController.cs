@@ -33,7 +33,7 @@ namespace SK.DDP.ImageGallery.Controllers
             }
 
             CredentialsHelper.RememberAsAuthenticated(userViewModel.Login);
-            return RedirectToAction("Index", "UserManagement");
+            return RedirectToAction("Index", "UserManagement", new { area = "Administration" });//TODO: add if when roles will occur.
         }
     }
 }

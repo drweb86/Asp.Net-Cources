@@ -51,6 +51,10 @@ namespace SK.DDP.BL
 
         public void Delete(string userName)
         {
+            var id = (Guid)Membership.GetUser(userName).ProviderUserKey;
+
+            new PhotoService().RemoveAllData(id);
+
             Membership.DeleteUser(userName);
         }
 

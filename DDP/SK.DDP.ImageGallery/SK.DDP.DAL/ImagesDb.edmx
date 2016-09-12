@@ -1,0 +1,159 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="ImageGalleryDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="Image_UID" />
+          </Key>
+          <Property Name="Image_UID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Path" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="User_UID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ImageKeyword">
+          <Key>
+            <PropertyRef Name="Image_UID" />
+            <PropertyRef Name="Keyword_UID" />
+          </Key>
+          <Property Name="Image_UID" Type="int" Nullable="false" />
+          <Property Name="Keyword_UID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Keyword">
+          <Key>
+            <PropertyRef Name="Keyword_UID" />
+          </Key>
+          <Property Name="Keyword_UID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ImageKeyword_Image">
+          <End Role="Image" Type="Self.Image" Multiplicity="1" />
+          <End Role="ImageKeyword" Type="Self.ImageKeyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Image">
+              <PropertyRef Name="Image_UID" />
+            </Principal>
+            <Dependent Role="ImageKeyword">
+              <PropertyRef Name="Image_UID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ImageKeyword_Keyword">
+          <End Role="Keyword" Type="Self.Keyword" Multiplicity="1" />
+          <End Role="ImageKeyword" Type="Self.ImageKeyword" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Keyword">
+              <PropertyRef Name="Keyword_UID" />
+            </Principal>
+            <Dependent Role="ImageKeyword">
+              <PropertyRef Name="Keyword_UID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ImageGalleryDbModelStoreContainer">
+          <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ImageKeyword" EntityType="Self.ImageKeyword" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Keyword" EntityType="Self.Keyword" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ImageKeyword_Image" Association="Self.FK_ImageKeyword_Image">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="ImageKeyword" EntitySet="ImageKeyword" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ImageKeyword_Keyword" Association="Self.FK_ImageKeyword_Keyword">
+            <End Role="Keyword" EntitySet="Keyword" />
+            <End Role="ImageKeyword" EntitySet="ImageKeyword" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ImageGalleryDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="Image_UID" />
+          </Key>
+          <Property Name="Image_UID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="User_UID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Keyword" Relationship="Self.ImageKeyword" FromRole="Image" ToRole="Keyword" />
+        </EntityType>
+        <EntityType Name="Keyword">
+          <Key>
+            <PropertyRef Name="Keyword_UID" />
+          </Key>
+          <Property Name="Keyword_UID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Image" Relationship="Self.ImageKeyword" FromRole="Keyword" ToRole="Image" />
+        </EntityType>
+        <Association Name="ImageKeyword">
+          <End Role="Image" Type="Self.Image" Multiplicity="*" />
+          <End Role="Keyword" Type="Self.Keyword" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="ImageGalleryDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Image" EntityType="Self.Image" />
+          <EntitySet Name="Keyword" EntityType="Self.Keyword" />
+          <AssociationSet Name="ImageKeyword" Association="Self.ImageKeyword">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="Keyword" EntitySet="Keyword" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ImageGalleryDbModelStoreContainer" CdmEntityContainer="ImageGalleryDbEntities">
+          <EntitySetMapping Name="Image">
+            <EntityTypeMapping TypeName="ImageGalleryDbModel.Image">
+              <MappingFragment StoreEntitySet="Image">
+                <ScalarProperty Name="Image_UID" ColumnName="Image_UID" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="User_UID" ColumnName="User_UID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Keyword">
+            <EntityTypeMapping TypeName="ImageGalleryDbModel.Keyword">
+              <MappingFragment StoreEntitySet="Keyword">
+                <ScalarProperty Name="Keyword_UID" ColumnName="Keyword_UID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="ImageKeyword" TypeName="ImageGalleryDbModel.ImageKeyword" StoreEntitySet="ImageKeyword">
+            <EndProperty Name="Image">
+              <ScalarProperty Name="Image_UID" ColumnName="Image_UID" />
+            </EndProperty>
+            <EndProperty Name="Keyword">
+              <ScalarProperty Name="Keyword_UID" ColumnName="Keyword_UID" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
