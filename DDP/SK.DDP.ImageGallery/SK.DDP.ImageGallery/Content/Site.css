@@ -16,3 +16,24 @@ textarea {
     max-width: 280px;
 }
 
+
+
+/* General sizing */
+ul.dropdown-lr {
+  width: 300px;
+}
+
+/* mobile fix */
+@media (max-width: 768px) {
+	.dropdown-lr h3 {
+		color: #eee;
+	}
+	.dropdown-lr label {
+		color: #eee;
+	}
+}
+
+.inputBox {
+    margin: 10% auto;
+    width: 200px;
+}

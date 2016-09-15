@@ -135,6 +135,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CredentialsHelper.cs" />
+    <Compile Include="Helpers\WebModelExtensions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +145,8 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Authorization\Login.cshtml" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="Views\Authorization\AuthorizationInfo.cshtml" />
+    <Content Include="Views\Authorization\Register.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

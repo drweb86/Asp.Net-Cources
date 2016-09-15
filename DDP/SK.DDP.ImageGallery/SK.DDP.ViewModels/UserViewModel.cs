@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace SK.DDP.ViewModels
 {
@@ -14,8 +15,10 @@ namespace SK.DDP.ViewModels
             Password = password;
         }
 
+        [DisplayName("Username")]
         [Required]
         public string Login { get; set; }
+
         [Required]
         public string Password { get; set; }
     }
