@@ -1,4 +1,4 @@
-﻿@model IEnumerable<SK.DDP.ViewModels.UserViewModel>
+﻿@model IEnumerable<SK.DDP.ViewModels.UserProfile>
 
 @{
     ViewBag.Title = "Users Management";
@@ -17,6 +17,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Password)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
         <th></th>
     </tr>
 
@@ -27,6 +30,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Password)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
             @Html.ActionLink("Edit", "EditUser", new { login=item.Login }) |

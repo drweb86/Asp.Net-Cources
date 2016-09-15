@@ -9,7 +9,7 @@ namespace SK.DDP.ImageGallery.Controllers
     {
         public ActionResult AuthorizationInfo()
         {
-            return PartialView();
+            return PartialView(CredentialsHelper.IsAuthenticated());
         }
 
         public ActionResult Logout()
@@ -18,8 +18,13 @@ namespace SK.DDP.ImageGallery.Controllers
             return RedirectToAction("Login");
         }
 
-        public ActionResult Login()
+        public ActionResult Login(bool partial = false)
         {
+            if (partial)
+            {
+                ViewBag.Partial = true;
+                return PartialView();
+            }
             return View();
         }
 
@@ -41,27 +46,38 @@ namespace SK.DDP.ImageGallery.Controllers
             return RedirectToAction("Index", "UserManagement", new { area = "Administration" });//TODO: add if when roles will occur.
         }
 
-        public ActionResult Register()
+        public ActionResult Register(bool partial = false)
         {
+            if (partial)
+            {
+                ViewBag.Partial = true;
+                return PartialView();
+            }
             return View();
         }
 
         [HttpPost]
-        public ActionResult Register(UserViewModel userViewModel)
+        public ActionResult Register(UserProfile userProfile)
         {
             if (!ModelState.IsValid)
-                return View(userViewModel);
+                return View(userProfile);
 
             var service = new UserManagementService();
-            //TODO: register
-            var authenticatedDb = service.Authenticate(userViewModel.Login, userViewModel.Password);
-            if (authenticatedDb == null)
+
+            if (service.GetUser(userProfile.Login) != null)
             {
-                ModelState.AddModelError("", "Invalid login or password.");
-                return View(userViewModel);
+                ModelState.AddModelError("", "Username is already used. Try different.");
+                return View(userProfile);
             }
 
-            CredentialsHelper.RememberAsAuthenticated(userViewModel.Login);
+            string error;
+            if (!service.Register(userProfile, out error))
+            {
+                ModelState.AddModelError("", error);
+                return View(userProfile);
+            }
+
+            CredentialsHelper.RememberAsAuthenticated(userProfile.Login);
             return RedirectToAction("Index", "UserManagement", new { area = "Administration" });//TODO: add if when roles will occur.
         }
     }

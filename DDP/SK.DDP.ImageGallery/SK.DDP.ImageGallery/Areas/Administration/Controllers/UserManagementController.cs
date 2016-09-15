@@ -20,7 +20,7 @@ namespace SK.DDP.ImageGallery.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddUser(UserViewModel userViewModel)
+        public ActionResult AddUser(UserProfile userViewModel)
         {
             if (!ModelState.IsValid)
                 return View(userViewModel);
@@ -42,7 +42,7 @@ namespace SK.DDP.ImageGallery.Areas.Administration.Controllers
         }
 
         [HttpPost]
-        public ActionResult EditUser(UserViewModel userViewModel)
+        public ActionResult EditUser(UserProfile userViewModel)
         {
             if (!ModelState.IsValid)
                 return View(userViewModel);

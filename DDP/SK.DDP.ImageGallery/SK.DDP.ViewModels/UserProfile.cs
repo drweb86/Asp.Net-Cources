@@ -9,11 +9,10 @@ namespace SK.DDP.ViewModels
         {
         }
 
-        public UserProfile(string login, string password) :
+        public UserProfile(string login, string password, string email) :
             base(login, password)
         {
-            Login = login;
-            Password = password;
+            Email = email;
         }
 
         [DisplayName("E-mail")]

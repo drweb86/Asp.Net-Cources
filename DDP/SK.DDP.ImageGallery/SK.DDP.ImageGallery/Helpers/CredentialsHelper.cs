@@ -19,5 +19,10 @@ namespace SK.DDP.ImageGallery.Helpers
         {
             return HttpContext.Current.User.Identity.Name;
         }
+
+        public static bool IsAuthenticated()
+        {
+            return (System.Web.HttpContext.Current.User != null) && System.Web.HttpContext.Current.User.Identity.IsAuthenticated;
+        }
     }
 }
