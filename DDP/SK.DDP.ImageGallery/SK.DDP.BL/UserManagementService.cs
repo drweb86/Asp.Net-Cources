@@ -7,14 +7,22 @@ namespace SK.DDP.BL
 {
     public class UserManagementService: IUserManagementService
     {
+        private UserProfile CreateFromMembershipUser(MembershipUser user)
+        {
+            return new UserProfile(user.UserName, 
+                user.IsLockedOut ? string.Empty : user.GetPassword(),
+                user.Email, 
+                user.IsLockedOut);
+        }
+
         public IEnumerable<UserProfile> GetUsers()
         {
             var result = new List<UserProfile>();
 
             int totalRecords;
-            foreach (MembershipUser dbUer in Membership.GetAllUsers(0, Int32.MaxValue, out totalRecords))
+            foreach (MembershipUser dbUser in Membership.GetAllUsers(0, Int32.MaxValue, out totalRecords))
             {
-                result.Add(new UserProfile(dbUer.UserName, dbUer.GetPassword(), dbUer.Email));
+                result.Add(CreateFromMembershipUser(dbUser));
             }
 
             return result;
@@ -29,9 +37,7 @@ namespace SK.DDP.BL
             if (!Membership.ValidateUser(login, password))
                 return null;
 
-            MembershipUser user = Membership.GetUser(login);
-
-            return new UserProfile(user.UserName, password, user.Email);
+            return CreateFromMembershipUser(Membership.GetUser(login));
         }
 
         public bool Register(UserProfile newUser, out string error)
@@ -82,7 +88,7 @@ namespace SK.DDP.BL
             if (dbUser == null)
                 return null;
 
-            return new UserProfile(dbUser.UserName, dbUser.GetPassword(), dbUser.Email);
+            return CreateFromMembershipUser(dbUser);
         }
     }
 }

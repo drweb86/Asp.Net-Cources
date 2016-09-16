@@ -17,7 +17,7 @@ else
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Register <span class="caret"></span></a>
         <ul class="dropdown-menu dropdown-lr" role="menu">
             <div class="col-lg-12">
-                @{ Html.RenderAction("Register", new {partial = true}); }
+                @{ Html.RenderAction("RegisterPartial"); }
             </div>
         </ul>
     </li>
@@ -25,7 +25,7 @@ else
         <a href="" class="dropdown-toggle" data-toggle="dropdown">Log In <span class="caret"></span></a>
         <ul class="dropdown-menu dropdown-lr" role="menu">
             <div class="col-lg-12">
-                @{ Html.RenderAction("Login", new { partial = true }); }
+                @{ Html.RenderAction("LoginPartial"); }
             </div>
         </ul>
     </li>
