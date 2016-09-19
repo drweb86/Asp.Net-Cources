@@ -4,7 +4,15 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="ImageGalleryDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ImageGalleryDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Album">
+          <Key>
+            <PropertyRef Name="Album_UID" />
+          </Key>
+          <Property Name="Album_UID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="User_UID" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
         <EntityType Name="Image">
           <Key>
             <PropertyRef Name="Image_UID" />
@@ -12,7 +20,7 @@
           <Property Name="Image_UID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Path" Type="nvarchar(max)" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
-          <Property Name="User_UID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Album_UID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="ImageKeyword">
           <Key>
@@ -29,6 +37,18 @@
           <Property Name="Keyword_UID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Image_Album">
+          <End Role="Album" Type="Self.Album" Multiplicity="1" />
+          <End Role="Image" Type="Self.Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Album">
+              <PropertyRef Name="Album_UID" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="Album_UID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ImageKeyword_Image">
           <End Role="Image" Type="Self.Image" Multiplicity="1" />
           <End Role="ImageKeyword" Type="Self.ImageKeyword" Multiplicity="*" />
@@ -54,9 +74,14 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="ImageGalleryDbModelStoreContainer">
+          <EntitySet Name="Album" EntityType="Self.Album" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Image" EntityType="Self.Image" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ImageKeyword" EntityType="Self.ImageKeyword" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Keyword" EntityType="Self.Keyword" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Image_Album" Association="Self.FK_Image_Album">
+            <End Role="Album" EntitySet="Album" />
+            <End Role="Image" EntitySet="Image" />
+          </AssociationSet>
           <AssociationSet Name="FK_ImageKeyword_Image" Association="Self.FK_ImageKeyword_Image">
             <End Role="Image" EntitySet="Image" />
             <End Role="ImageKeyword" EntitySet="ImageKeyword" />
@@ -66,71 +91,106 @@
             <End Role="ImageKeyword" EntitySet="ImageKeyword" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="ImageGalleryDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ImageGalleryDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Album" EntityType="ImageGalleryDbModel.Album" />
+          <EntitySet Name="Image" EntityType="ImageGalleryDbModel.Image" />
+          <EntitySet Name="Keyword" EntityType="ImageGalleryDbModel.Keyword" />
+          <AssociationSet Name="FK_Image_Album" Association="ImageGalleryDbModel.FK_Image_Album">
+            <End Role="Album" EntitySet="Album" />
+            <End Role="Image" EntitySet="Image" />
+          </AssociationSet>
+          <AssociationSet Name="ImageKeyword" Association="ImageGalleryDbModel.ImageKeyword">
+            <End Role="Image" EntitySet="Image" />
+            <End Role="Keyword" EntitySet="Keyword" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Album">
+          <Key>
+            <PropertyRef Name="Album_UID" />
+          </Key>
+          <Property Name="Album_UID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="User_UID" Type="Guid" Nullable="false" />
+          <NavigationProperty Name="Image" Relationship="ImageGalleryDbModel.FK_Image_Album" FromRole="Album" ToRole="Image" />
+        </EntityType>
         <EntityType Name="Image">
           <Key>
             <PropertyRef Name="Image_UID" />
           </Key>
           <Property Name="Image_UID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Path" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Path" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="User_UID" Type="Guid" Nullable="false" />
-          <NavigationProperty Name="Keyword" Relationship="Self.ImageKeyword" FromRole="Image" ToRole="Keyword" />
+          <Property Name="Album_UID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Album" Relationship="ImageGalleryDbModel.FK_Image_Album" FromRole="Image" ToRole="Album" />
+          <NavigationProperty Name="Keyword" Relationship="ImageGalleryDbModel.ImageKeyword" FromRole="Image" ToRole="Keyword" />
         </EntityType>
         <EntityType Name="Keyword">
           <Key>
             <PropertyRef Name="Keyword_UID" />
           </Key>
           <Property Name="Keyword_UID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="Image" Relationship="Self.ImageKeyword" FromRole="Keyword" ToRole="Image" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Image" Relationship="ImageGalleryDbModel.ImageKeyword" FromRole="Keyword" ToRole="Image" />
         </EntityType>
-        <Association Name="ImageKeyword">
-          <End Role="Image" Type="Self.Image" Multiplicity="*" />
-          <End Role="Keyword" Type="Self.Keyword" Multiplicity="*" />
+        <Association Name="FK_Image_Album">
+          <End Type="ImageGalleryDbModel.Album" Role="Album" Multiplicity="1" />
+          <End Type="ImageGalleryDbModel.Image" Role="Image" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Album">
+              <PropertyRef Name="Album_UID" />
+            </Principal>
+            <Dependent Role="Image">
+              <PropertyRef Name="Album_UID" />
+            </Dependent>
+          </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="ImageGalleryDbEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="Image" EntityType="Self.Image" />
-          <EntitySet Name="Keyword" EntityType="Self.Keyword" />
-          <AssociationSet Name="ImageKeyword" Association="Self.ImageKeyword">
-            <End Role="Image" EntitySet="Image" />
-            <End Role="Keyword" EntitySet="Keyword" />
-          </AssociationSet>
-        </EntityContainer>
+        <Association Name="ImageKeyword">
+          <End Type="ImageGalleryDbModel.Image" Role="Image" Multiplicity="*" />
+          <End Type="ImageGalleryDbModel.Keyword" Role="Keyword" Multiplicity="*" />
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="ImageGalleryDbModelStoreContainer" CdmEntityContainer="ImageGalleryDbEntities">
+          <EntitySetMapping Name="Album">
+            <EntityTypeMapping TypeName="ImageGalleryDbModel.Album">
+              <MappingFragment StoreEntitySet="Album">
+                <ScalarProperty Name="User_UID" ColumnName="User_UID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Album_UID" ColumnName="Album_UID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Image">
             <EntityTypeMapping TypeName="ImageGalleryDbModel.Image">
               <MappingFragment StoreEntitySet="Image">
-                <ScalarProperty Name="Image_UID" ColumnName="Image_UID" />
-                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Album_UID" ColumnName="Album_UID" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="User_UID" ColumnName="User_UID" />
+                <ScalarProperty Name="Path" ColumnName="Path" />
+                <ScalarProperty Name="Image_UID" ColumnName="Image_UID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Keyword">
             <EntityTypeMapping TypeName="ImageGalleryDbModel.Keyword">
               <MappingFragment StoreEntitySet="Keyword">
-                <ScalarProperty Name="Keyword_UID" ColumnName="Keyword_UID" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Keyword_UID" ColumnName="Keyword_UID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <AssociationSetMapping Name="ImageKeyword" TypeName="ImageGalleryDbModel.ImageKeyword" StoreEntitySet="ImageKeyword">
-            <EndProperty Name="Image">
-              <ScalarProperty Name="Image_UID" ColumnName="Image_UID" />
-            </EndProperty>
             <EndProperty Name="Keyword">
               <ScalarProperty Name="Keyword_UID" ColumnName="Keyword_UID" />
+            </EndProperty>
+            <EndProperty Name="Image">
+              <ScalarProperty Name="Image_UID" ColumnName="Image_UID" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

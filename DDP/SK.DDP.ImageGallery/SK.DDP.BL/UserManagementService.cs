@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Core;
 using System.Web.Security;
 using SK.DDP.ViewModels;
 
@@ -83,6 +84,15 @@ namespace SK.DDP.BL
                 return null;
 
             return new UserProfile(dbUser.UserName, dbUser.GetPassword(), dbUser.Email);
+        }
+
+        public Guid GetUserKey(string userName)
+        {
+            MembershipUser dbUser = Membership.GetUser(userName);
+            if (dbUser == null)
+                throw new ObjectNotFoundException();
+
+            return (Guid)dbUser.ProviderUserKey;
         }
     }
 }

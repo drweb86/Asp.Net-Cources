@@ -12,7 +12,11 @@ namespace SK.DDP.ImageGallery.Areas.Visitor
                 "Visitor_default",
                 "Visitor/{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new[] { "SK.DDP.ImageGallery.Areas.Visitor.Controllers" }
+                namespaces: new[]
+                    {
+                        "SK.DDP.ImageGallery.Areas.Visitor.Controllers",
+                        "SK.DDP.ImageGallery.Controllers.Shared"
+                    }
             );
         }
     }

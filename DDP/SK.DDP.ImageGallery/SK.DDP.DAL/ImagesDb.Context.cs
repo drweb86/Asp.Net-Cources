@@ -25,6 +25,7 @@ namespace SK.DDP.DAL
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<Album> Album { get; set; }
         public virtual DbSet<Image> Image { get; set; }
         public virtual DbSet<Keyword> Keyword { get; set; }
     }

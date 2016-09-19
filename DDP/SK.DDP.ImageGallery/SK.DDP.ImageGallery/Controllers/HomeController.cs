@@ -20,5 +20,6 @@ namespace SK.DDP.ImageGallery.Controllers
         {
             return View();
         }
+        
     }
 }

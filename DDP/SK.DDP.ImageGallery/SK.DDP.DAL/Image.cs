@@ -23,8 +23,9 @@ namespace SK.DDP.DAL
         public int Image_UID { get; set; }
         public string Path { get; set; }
         public System.DateTime Date { get; set; }
-        public System.Guid User_UID { get; set; }
+        public int Album_UID { get; set; }
     
+        public virtual Album Album { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Keyword> Keyword { get; set; }
     }

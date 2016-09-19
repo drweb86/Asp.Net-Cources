@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using SK.DDP.ViewModels;
 
 namespace SK.DDP.BL
@@ -11,5 +12,6 @@ namespace SK.DDP.BL
         void Delete(string userName);
         bool Update(UserProfile vm, out string error);
         UserProfile GetUser(string userName);
+        Guid GetUserKey(string userName);
     }
 }

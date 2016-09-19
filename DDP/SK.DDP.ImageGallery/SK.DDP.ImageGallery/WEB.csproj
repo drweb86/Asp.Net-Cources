@@ -107,6 +107,9 @@
     <Content Include="Areas\Visitor\Views\web.config" />
     <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\Visitor\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Visitor\Views\Home\Index.cshtml" />
+    <Content Include="Areas\Visitor\Views\Home\AddAlbum.cshtml" />
+    <Content Include="Areas\Visitor\Views\Home\RenameAlbum.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -127,8 +130,9 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Visitor\Controllers\HomeController.cs" />
     <Compile Include="Areas\Visitor\VisitorAreaRegistration.cs" />
-    <Compile Include="Controllers\AuthorizationController.cs" />
+    <Compile Include="Controllers\Shared\AuthorizationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Areas\Administration\Controllers\UserManagementController.cs" />
     <Compile Include="Global.asax.cs">
@@ -155,7 +159,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Areas\Visitor\Controllers\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

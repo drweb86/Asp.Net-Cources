@@ -5,9 +5,11 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="607e241171b0406d9c78c564e7997f45" Name="Diagram1">
-        <EntityTypeShape EntityType="ImageGalleryDbModel.Image" Width="1.5" PointX="0.75" PointY="0.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="ImageGalleryDbModel.Keyword" Width="1.5" PointX="3" PointY="1.125" IsExpanded="true" />
-        <AssociationConnector Association="ImageGalleryDbModel.ImageKeyword" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="ImageGalleryDbModel.Album" Width="1.5" PointX="0.75" PointY="1.125" />
+        <EntityTypeShape EntityType="ImageGalleryDbModel.Image" Width="1.5" PointX="3" PointY="0.875" />
+        <EntityTypeShape EntityType="ImageGalleryDbModel.Keyword" Width="1.5" PointX="5.25" PointY="1.25" />
+        <AssociationConnector Association="ImageGalleryDbModel.FK_Image_Album" />
+        <AssociationConnector Association="ImageGalleryDbModel.ImageKeyword" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
