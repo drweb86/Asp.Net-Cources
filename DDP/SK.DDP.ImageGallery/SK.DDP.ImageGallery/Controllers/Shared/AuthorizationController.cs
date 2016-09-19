@@ -17,15 +17,16 @@ namespace SK.DDP.ImageGallery.Controllers.Shared
             CredentialsHelper.Forget();
             return RedirectToAction("Login");
         }
-
-        public ActionResult Login(bool partial = false)
+        
+        public ActionResult Login()
         {
-            if (partial)
-            {
-                ViewBag.Partial = true;
-                return PartialView();
-            }
             return View();
+        }
+
+        public ActionResult LoginPartial()
+        {
+            ViewBag.Partial = true;
+            return PartialView("Login");
         }
 
         [HttpPost]
@@ -46,14 +47,15 @@ namespace SK.DDP.ImageGallery.Controllers.Shared
             return RedirectToAction("Index", "UserManagement", new { area = "Administration" });//TODO: add if when roles will occur.
         }
 
-        public ActionResult Register(bool partial = false)
+        public ActionResult Register()
         {
-            if (partial)
-            {
-                ViewBag.Partial = true;
-                return PartialView();
-            }
             return View();
+        }
+
+        public ActionResult RegisterPartial()
+        {
+            ViewBag.Partial = true;
+            return PartialView("Register");
         }
 
         [HttpPost]
