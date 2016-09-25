@@ -1,10 +1,11 @@
-﻿@model IEnumerable<SK.DDP.BL.AlbumViewModel>
+﻿@using SK.DDP.ImageGallery.Helpers
+@model IEnumerable<SK.DDP.BL.AlbumViewModel>
 
 @{
-    ViewBag.Title = "Albums";
+    ViewBag.Title = $"{CredentialsHelper.GetAuthenticatedUserName()} Albums";
 }
 
-<h2>Albums</h2>
+<h2>@ViewBag.Title</h2>
 
 <p>
     @Html.ActionLink("Add", "AddAlbum")
@@ -20,7 +21,7 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.ActionLink(item.Name, "Details", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink(item.Name, "ViewAlbum", new { id=item.Album_UID })
         </td>
         <td>
             @Html.ActionLink("Rename", "RenameAlbum", new { id=item.Album_UID }) |

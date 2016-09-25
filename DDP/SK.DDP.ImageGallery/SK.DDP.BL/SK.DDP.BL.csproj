@@ -56,6 +56,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlbumViewModel.cs" />
+    <Compile Include="FileUtils.cs" />
+    <Compile Include="ImageViewModel.cs" />
     <Compile Include="IPhotoService.cs" />
     <Compile Include="IUserManagementService.cs" />
     <Compile Include="PhotoService.cs" />

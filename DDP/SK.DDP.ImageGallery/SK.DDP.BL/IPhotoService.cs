@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using SK.DDP.DAL;
+using System.Web;
 
 namespace SK.DDP.BL
 {
@@ -17,5 +14,10 @@ namespace SK.DDP.BL
         AlbumViewModel GetAlbum(int id);
         void UpdateAlbum(AlbumViewModel album);
         void DeleteAlbum(AlbumViewModel album);
+
+        IEnumerable<ImageViewModel> GetImages(AlbumViewModel album);
+        void AddImage(AlbumViewModel album, HttpPostedFileBase image);
+        void DeleteImage(ImageViewModel image);
+        ImageViewModel GetImage(int imageUid);
     }
 }

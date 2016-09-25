@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 using AutoMapper;
 using SK.DDP.DAL;
 
@@ -16,9 +16,10 @@ namespace SK.DDP.BL
             var config = new MapperConfiguration(cfg => {
                 cfg.CreateMap<AlbumViewModel, Album>();
                 cfg.CreateMap<Album, AlbumViewModel>();
-
-
+                cfg.CreateMap<ImageViewModel, Image>();
+                cfg.CreateMap<Image, ImageViewModel>();
             });
+
             _mapper = config.CreateMapper();
         }
 
@@ -50,13 +51,12 @@ namespace SK.DDP.BL
                         .AddRange(dbContext.Image
                         .Where(image => image.Album_UID == album.Album_UID));
                 }
-
-                foreach (var image in imagesToRemove)
-                {
-                    DeleteImageFile(image.Path);
-                }
-
+                
                 dbContext.Image.RemoveRange(imagesToRemove);
+                var albumsFolder = FileUtils.GetUserAlbumsFolder(user);
+                if (Directory.Exists(albumsFolder))
+                    Directory.Delete(albumsFolder, true);
+
                 dbContext.Album.RemoveRange(albumsToRemove);
 
                 dbContext.SaveChanges();
@@ -65,6 +65,7 @@ namespace SK.DDP.BL
 
         public void AddAlbum(AlbumViewModel viewModel)
         {
+            viewModel.Album_UID = 0;
             using (var dbContext = new ImageGalleryDbEntities())
             {
                 dbContext.Album.Add(_mapper.Map(viewModel, new Album()));
@@ -101,10 +102,9 @@ namespace SK.DDP.BL
                 var albumToRemove = dbContext.Album.First(dbAlbum => dbAlbum.Album_UID == album.Album_UID);
                 var imagesToRemove = dbContext.Image.Where(image => image.Album_UID == album.Album_UID);
 
-                foreach (var image in imagesToRemove)
-                {
-                    DeleteImageFile(image.Path);
-                }
+                var albumsFolder = FileUtils.GetUserImagesFolder(albumToRemove.User_UID, albumToRemove.Album_UID);
+                if (Directory.Exists(albumsFolder))
+                    Directory.Delete(albumsFolder, true);
 
                 dbContext.Image.RemoveRange(imagesToRemove);
                 dbContext.Album.Remove(albumToRemove);
@@ -113,9 +113,54 @@ namespace SK.DDP.BL
             }
         }
 
-        private void DeleteImageFile(string relativePath)
+        public ImageViewModel GetImage(int imageUid)
         {
-            //TODO: implement after adding upload images staff.
+            using (var dbContext = new ImageGalleryDbEntities())
+            {
+                return _mapper.Map(
+                    dbContext.Image.First(dbImage => dbImage.Image_UID == imageUid),
+                    new ImageViewModel());
+            }
+        }
+
+        public void DeleteImage(ImageViewModel image)
+        {
+            using (var dbContext = new ImageGalleryDbEntities())
+            {
+                dbContext.Image.Remove(dbContext.Image.First(dbImage=> dbImage.Image_UID == image.Image_UID));
+
+                dbContext.SaveChanges();
+            }
+        }
+
+        public IEnumerable<ImageViewModel> GetImages(AlbumViewModel album)
+        {
+            using (var dbContext = new ImageGalleryDbEntities())
+            {
+                return dbContext.Image
+                    .Where(image => image.Album_UID == album.Album_UID)
+                    .ToArray()
+                    .Select(dbImage => _mapper.Map(dbImage, new ImageViewModel()))
+                    .ToArray();
+            }
+        }
+
+        public void AddImage(AlbumViewModel album, HttpPostedFileBase image)
+        {
+            var dbImage = new Image();
+            using (var dbContext = new ImageGalleryDbEntities())
+            {
+                dbImage.Album_UID = album.Album_UID;
+                dbImage.Date = DateTime.UtcNow;
+                dbImage.Path = Path.GetFileName(image.FileName);
+
+                dbContext.Image.Add(dbImage);
+
+                dbContext.SaveChanges();
+            }
+
+            Directory.CreateDirectory(FileUtils.GetImageFolder(album.User_UID, album.Album_UID, dbImage.Image_UID));
+            image.SaveAs(FileUtils.GetImagePath(album.User_UID, album.Album_UID, dbImage.Image_UID, dbImage.Path));
         }
     }
 }

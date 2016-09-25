@@ -1,0 +1,43 @@
+﻿@using SK.DDP.BL
+@using SK.DDP.ImageGallery.Helpers
+@model SK.DDP.ImageGallery.Models.AlbumPicturesPageViewModel
+
+@{
+    ViewBag.Title = $"{Model.Album.Name} Album by {CredentialsHelper.GetAuthenticatedUserName()}";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<p>
+    @Html.ActionLink("Add", "AddImage", new { id = Model.Album.Album_UID })
+    @Html.ActionLink("Delete album", "DeleteAlbum", new { id = Model.Album.Album_UID }, new { onclick = $"return confirm ('Please confirm removal of {Model.Album.Name}.');" })
+</p>
+
+<table class="table">
+    <tr>
+        <th>Image</th>
+        <th>
+            @Html.GetDisplayName(vm => new ImageViewModel().Path)
+        </th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var item in Model.Images)
+    {
+        <tr>
+            <td>
+                <image src="/Content/Images/@Model.Album.User_UID.ToString()/@Model.Album.Album_UID.ToString()/@item.Image_UID.ToString()/@item.Path" style="max-height: 100px; max-width: 100px"/>
+            </td>
+            <td>
+                @item.Path
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "DeleteImage", new {id = item.Image_UID}, new {onclick = $"return confirm ('Please confirm removal of an image.');"})
+            </td>
+        </tr>
+    }
+</table>
+
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

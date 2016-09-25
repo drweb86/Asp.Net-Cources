@@ -110,6 +110,8 @@
     <Content Include="Areas\Visitor\Views\Home\Index.cshtml" />
     <Content Include="Areas\Visitor\Views\Home\AddAlbum.cshtml" />
     <Content Include="Areas\Visitor\Views\Home\RenameAlbum.cshtml" />
+    <Content Include="Areas\Visitor\Views\Home\ViewAlbum.cshtml" />
+    <Content Include="Areas\Visitor\Views\Home\AddImage.cshtml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -140,6 +142,8 @@
     </Compile>
     <Compile Include="Helpers\CredentialsHelper.cs" />
     <Compile Include="Helpers\WebModelExtensions.cs" />
+    <Compile Include="Models\AddImagePageViewModel.cs" />
+    <Compile Include="Models\AlbumPicturesPageViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -158,9 +162,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\SK.DDP.BL\SK.DDP.BL.csproj">
       <Project>{c51871a2-a217-42c1-99dd-124e0b5c99f3}</Project>
