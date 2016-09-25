@@ -4,13 +4,7 @@ namespace SK.DDP.ImageGallery.Areas.Administration
 {
     public class AdministrationAreaRegistration : AreaRegistration 
     {
-        public override string AreaName 
-        {
-            get 
-            {
-                return "Administration";
-            }
-        }
+        public override string AreaName => "Administration";
 
         public override void RegisterArea(AreaRegistrationContext context) 
         {
@@ -18,7 +12,11 @@ namespace SK.DDP.ImageGallery.Areas.Administration
                 "Administration_default",
                 "Administration/{controller}/{action}/{id}",
                 new { controller = "Home", action = "Index", id = UrlParameter.Optional },
-                namespaces: new[] { "SK.DDP.ImageGallery.Areas.Administration.Controllers" }
+                namespaces: new[]
+                    {
+                        "SK.DDP.ImageGallery.Areas.Administration.Controllers",
+                        "SK.DDP.ImageGallery.Controllers.Shared"
+                    }
             );
         }
     }
