@@ -25,8 +25,7 @@
         <td>
             @Html.ActionLink("Rename", "RenameAlbum", new { id=item.Album_UID }) |
             
-            @Html.ActionLink("Delete", "DeleteAlbum", new { id=item.Album_UID })
-            @*TODO: add confirmation*@
+            @Html.ActionLink("Delete", "DeleteAlbum", new { id=item.Album_UID }, new { onclick= $"return confirm ('Please confirm removal of {item.Name}.');" })
         </td>
     </tr>
 }
