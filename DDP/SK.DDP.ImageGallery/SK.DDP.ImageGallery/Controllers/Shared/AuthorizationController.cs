@@ -7,6 +7,13 @@ namespace SK.DDP.ImageGallery.Controllers.Shared
 {
     public class AuthorizationController : Controller
     {
+        private readonly IUserManagementService _userManagementService;
+
+        public AuthorizationController(IUserManagementService userManagementService)
+        {
+            _userManagementService = userManagementService;
+        }
+
         public ActionResult AuthorizationInfo()
         {
             return PartialView(CredentialsHelper.IsAuthenticated());
@@ -35,8 +42,7 @@ namespace SK.DDP.ImageGallery.Controllers.Shared
             if (!ModelState.IsValid)
                 return View(userViewModel);
 
-            var service = new UserManagementService();
-            var authenticatedDb = service.Authenticate(userViewModel.Login, userViewModel.Password);
+            var authenticatedDb = _userManagementService.Authenticate(userViewModel.Login, userViewModel.Password);
             if (authenticatedDb == null)
             {
                 ModelState.AddModelError("", "Invalid login or password.");
@@ -64,23 +70,21 @@ namespace SK.DDP.ImageGallery.Controllers.Shared
             if (!ModelState.IsValid)
                 return View(userProfile);
 
-            var service = new UserManagementService();
-
-            if (service.GetUser(userProfile.Login) != null)
+            if (_userManagementService.GetUser(userProfile.Login) != null)
             {
                 ModelState.AddModelError("", "Username is already used. Try different.");
                 return View(userProfile);
             }
 
             string error;
-            if (!service.Register(userProfile, out error))
+            if (!_userManagementService.Register(userProfile, out error))
             {
                 ModelState.AddModelError("", error);
                 return View(userProfile);
             }
 
             CredentialsHelper.RememberAsAuthenticated(userProfile.Login);
-            return RedirectToAction("Index", "UserManagement", new { area = "Administration" });//TODO: add if when roles will occur.
+            return RedirectToAction("Index", "UserManagement", new { area = "Administration" });//TODO: add when roles will occur.
         }
     }
 }

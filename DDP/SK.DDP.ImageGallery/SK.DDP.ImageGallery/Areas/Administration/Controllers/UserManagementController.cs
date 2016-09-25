@@ -9,9 +9,16 @@ namespace SK.DDP.ImageGallery.Areas.Administration.Controllers
     [Authorize]
     public class UserManagementController : Controller
     {
+        private readonly IUserManagementService _userManagementService;
+
+        public UserManagementController(IUserManagementService userManagementService)
+        {
+            _userManagementService = userManagementService;
+        }
+
         public ActionResult Index()
         {
-            return View(new UserManagementService().GetUsers());
+            return View(_userManagementService.GetUsers());
         }
 
         public ActionResult AddUser()
@@ -26,7 +33,7 @@ namespace SK.DDP.ImageGallery.Areas.Administration.Controllers
                 return View(userViewModel);
 
             string error;
-            if (!new UserManagementService().Register(userViewModel, out error))
+            if (!_userManagementService.Register(userViewModel, out error))
             {
                 ModelState.AddModelError("", $"Can't register user: {error}.");
                 return View(userViewModel);
@@ -37,7 +44,7 @@ namespace SK.DDP.ImageGallery.Areas.Administration.Controllers
 
         public ActionResult EditUser(string login)
         {
-            var user = new UserManagementService().GetUser(login);
+            var user = _userManagementService.GetUser(login);
             return View(user);
         }
 
@@ -48,7 +55,7 @@ namespace SK.DDP.ImageGallery.Areas.Administration.Controllers
                 return View(userViewModel);
 
             string error;
-            if (!new UserManagementService().Update(userViewModel, out error))
+            if (!_userManagementService.Update(userViewModel, out error))
             {
                 ModelState.AddModelError("", $"Can't update user: {error}.");
                 return View(userViewModel);
@@ -59,7 +66,7 @@ namespace SK.DDP.ImageGallery.Areas.Administration.Controllers
 
         public ActionResult DeleteUser(string login)
         {
-            new UserManagementService().Delete(login);
+            _userManagementService.Delete(login);
 
             if (string.Compare(
                 CredentialsHelper.GetAuthenticatedUserName(),

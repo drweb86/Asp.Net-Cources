@@ -8,6 +8,13 @@ namespace SK.DDP.BL
 {
     public class UserManagementService: IUserManagementService
     {
+        private readonly IPhotoService _photoService;
+
+        public UserManagementService(IPhotoService photoService)
+        {
+            _photoService = photoService;
+        }
+
         private UserProfile CreateFromMembershipUser(MembershipUser user)
         {
             return new UserProfile(user.UserName, 
@@ -60,7 +67,7 @@ namespace SK.DDP.BL
         {
             var id = (Guid)Membership.GetUser(userName).ProviderUserKey;
 
-            new PhotoService().RemoveAllData(id);
+            _photoService.RemoveAllData(id);
 
             Membership.DeleteUser(userName);
         }

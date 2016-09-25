@@ -13,8 +13,16 @@ namespace SK.DDP.ImageGallery.Areas.Visitor.Controllers
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly IPhotoService _photoService = new PhotoService();
-        private readonly IUserManagementService _userManagementService = new UserManagementService();
+        private readonly IPhotoService _photoService;
+        private readonly IUserManagementService _userManagementService;
+
+        public HomeController(
+            IPhotoService photoService,
+            IUserManagementService userManagementService)
+        {
+            _photoService = photoService;
+            _userManagementService = userManagementService;
+        }
 
         public ActionResult Index()
         {
@@ -136,4 +144,4 @@ namespace SK.DDP.ImageGallery.Areas.Visitor.Controllers
             return RedirectToAction("Index");
         }
     }
-}//Server.MapPath("~/Images/")
+}
