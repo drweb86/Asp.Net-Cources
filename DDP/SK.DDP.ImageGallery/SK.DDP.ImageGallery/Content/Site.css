@@ -1,4 +1,32 @@
-﻿body {
+﻿.menuitem-action {
+    border:0px solid transparent;
+}
+
+.header-container {
+    padding-top: 25px; 
+    padding-bottom: 3px;
+}
+
+.header-navigation-link {
+    border:0px solid transparent; 
+}
+
+.header-navigation-first-link {
+    border:0px solid transparent; 
+    padding-left: 15px
+}
+
+.header-top-level-button {
+    color: #989898;
+    border:0px solid transparent; 
+}
+
+.header-title {
+    border:0px solid transparent;
+    color: #585858
+}
+
+body {
     padding-top: 50px;
     padding-bottom: 20px;
 }

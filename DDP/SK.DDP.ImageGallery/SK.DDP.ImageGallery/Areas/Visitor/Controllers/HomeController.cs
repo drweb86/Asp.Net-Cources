@@ -61,7 +61,7 @@ namespace SK.DDP.ImageGallery.Areas.Visitor.Controllers
 
             _photoService.AddAlbum(viewModel);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("ViewAlbum", new { id = viewModel .Album_UID });
         }
 
         public ActionResult ViewAlbum(int id)

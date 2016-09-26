@@ -68,9 +68,11 @@ namespace SK.DDP.BL
             viewModel.Album_UID = 0;
             using (var dbContext = new ImageGalleryDbEntities())
             {
-                dbContext.Album.Add(_mapper.Map(viewModel, new Album()));
+                var dbAlbum = dbContext.Album.Add(_mapper.Map(viewModel, new Album()));
 
                 dbContext.SaveChanges();
+
+                viewModel.Album_UID = dbAlbum.Album_UID;
             }
         }
 

@@ -6,19 +6,38 @@
     ViewBag.Title = $"{Model.Album.Name} Album by {CredentialsHelper.GetAuthenticatedUserName()}";
 }
 
-<h2>@ViewBag.Title</h2>
-
-<p>
-    @Html.ActionLink("Add", "AddImage", new { id = Model.Album.Album_UID })
-    @Html.ActionLink("Delete album", "DeleteAlbum", new { id = Model.Album.Album_UID }, new { onclick = $"return confirm ('Please confirm removal of {Model.Album.Name}.');" })
-</p>
+<div class="container-fluid header-container">
+    <div class="row ver">
+        <div class="col-md-12">
+            <a href="../Home/Index" class="header-navigation-first-link">Home</a> /
+            @Html.ActionLink("Albums", "Index", new {}, new {@class = "header-navigation-link"})
+        </div>
+    </div>
+    <div class="row ver">
+        <div class="col-md-6">
+            @Html.ActionLink(Model.Album.Name, "RenameAlbum", new { id = Model.Album.Album_UID }, new { @class = "btn btn-default btn-lg header-title", title="Click to rename this album" })
+        </div>
+        <div class="col-md-6">
+            <div class="dropdown pull-right">
+                @Html.ActionLink("Upload Image", "AddImage", new { id = Model.Album.Album_UID }, new { @class = "btn btn-default btn-lg header-top-level-button" })
+                <button class="btn btn-lg dropdown-toggle header-top-level-button" type="button" data-toggle="dropdown">
+                    Tools
+                    <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu">
+                    <li>@Html.ActionLink("Rename...", "RenameAlbum", new { id = Model.Album.Album_UID }, new { @class = "btn btn-default menuitem-action" })</li>
+                    <li class="divider" />
+                    <li>@Html.ActionLink("Delete album", "DeleteAlbum", new {id = Model.Album.Album_UID}, new { @class = "btn btn-default menuitem-action", onclick = $"return confirm ('Please confirm removal of {Model.Album.Name}.');" })</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
 <table class="table">
     <tr>
         <th>Image</th>
-        <th>
-            @Html.GetDisplayName(vm => new ImageViewModel().Path)
-        </th>
+        <th>Title</th>
         <th>Actions</th>
     </tr>
 
@@ -29,7 +48,7 @@
                 <image src="/Content/Images/@Model.Album.User_UID.ToString()/@Model.Album.Album_UID.ToString()/@item.Image_UID.ToString()/@item.Path" style="max-height: 100px; max-width: 100px"/>
             </td>
             <td>
-                @item.Path
+                @Path.GetFileNameWithoutExtension(item.Path)
             </td>
             <td>
                 @Html.ActionLink("Delete", "DeleteImage", new {id = item.Image_UID}, new {onclick = $"return confirm ('Please confirm removal of an image.');"})
@@ -37,7 +56,3 @@
         </tr>
     }
 </table>
-
-<p>
-    @Html.ActionLink("Back to List", "Index")
-</p>
