@@ -78,6 +78,17 @@ namespace SK.DDP.ImageGallery.Areas.Visitor.Controllers
             return View(pageModel);
         }
 
+        public ActionResult AddImagePartial(int id)
+        {
+            var user_uid = _userManagementService.GetUserKey(CredentialsHelper.GetAuthenticatedUserName());
+            var album = _photoService.GetAlbum(id);
+            if (album.User_UID != user_uid)
+                throw new SecurityException($"Attempt by {user_uid} to add image to album {album.Album_UID} of different user");
+
+            ViewBag.Partial = true;
+            return PartialView("AddImage", new AddImagePageViewModel() { Album = id });
+        }
+
         public ActionResult AddImage(int id)
         {
             var user_uid = _userManagementService.GetUserKey(CredentialsHelper.GetAuthenticatedUserName());

@@ -19,7 +19,15 @@
         </div>
         <div class="col-md-6">
             <div class="dropdown pull-right">
-                @Html.ActionLink("Upload Image", "AddImage", new { id = Model.Album.Album_UID }, new { @class = "btn btn-default btn-lg header-top-level-button" })
+                <button href="#AddImage" class="btn btn-lg header-top-level-button" type="button" data-toggle="collapse">
+                    Upload Image
+                    <span class="caret"></span>
+                </button>
+                <!-- TODO: rework and make it modal dialog. -->
+                <div id="AddImage" class="collapse">
+                    @{ Html.RenderAction("AddImagePartial"); }
+                </div>
+                
                 <button class="btn btn-lg dropdown-toggle header-top-level-button" type="button" data-toggle="dropdown">
                     Tools
                     <span class="caret"></span>
